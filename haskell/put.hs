@@ -3,4 +3,7 @@ putQStrLn a = do
   putStr a
   putChar '"'
 
-main = putQStrLn "Hello"
+main = do
+  putStr "Enter the text: \n"
+  str <- getLine
+  putQStrLn str

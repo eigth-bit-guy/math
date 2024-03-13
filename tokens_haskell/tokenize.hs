@@ -1,17 +1,25 @@
-data Token
-data Expresion
+data Token = TokOp Operator
+           |TokIdent String
+           | TokEnum Int
+  deriving(Show, Eq)
 
-tokenize :: String -> [Token]
-tokenize = undefined
+showContent :: Token -> String
+showContent (TokOp op) = opToStr op
+showContent (TokIdent str) = str
+showContent (TokEnum i) = show i
 
-parser :: [Token] -> Expresion
-parser = undefined
+token :: Token
+token = TokIdent "*"
 
-main :: IO()
 main = do
-  line <- getLine
-  putStr "Token: "
-  putStr line
-  putChar '\n'
-  print(if read line >= 1 then 1 else 0)
-  main
+  print $ showContent token
+  print token
+
+data Operator = Plus | Minos | Times | Div
+  deriving(Show, Eq)
+
+opToStr :: Operator -> String
+opToStr Plus = "+"
+opToStr Minos = "-"
+opToStr Times = "*"
+opToStr Div = "/"

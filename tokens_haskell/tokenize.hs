@@ -1,25 +1,31 @@
+import Data.Char
+
+data Operator = Plus 
+              | Minus
+              | Times 
+              | Div 
+  deriving(Show, Eq)
+
 data Token = TokOp Operator
            |TokIdent String
-           | TokEnum Int
+           | TokNum Int
   deriving(Show, Eq)
 
-showContent :: Token -> String
-showContent (TokOp op) = opToStr op
-showContent (TokIdent str) = str
-showContent (TokEnum i) = show i
+operator :: Char -> Operator
+operator x
+  | x == '+' = Plus
+  | x == '-' = Minus
+  | x == '*' = Times
+  | x == '/' = Div
 
-token :: Token
-token = TokIdent "*"
 
-main = do
-  print $ showContent token
-  print token
+tokenize :: String -> [Token]
+tokenize [] = []
+tokenize (x : xs) 
+  | elem x "+-*/" = TokOp (operator x) : tokenize xs
+  | isDigit x = TokNum (digitToInt x) : tokenize xs
+  | isAlpha x = TokIdent [x] : tokenize xs
+  | isSpace x = tokenize xs
+  | otherwise = error $ "Cannot tokenize: " ++ [x]
 
-data Operator = Plus | Minos | Times | Div
-  deriving(Show, Eq)
-
-opToStr :: Operator -> String
-opToStr Plus = "+"
-opToStr Minos = "-"
-opToStr Times = "*"
-opToStr Div = "/"
+main = print $ tokenize "Test 1 + 3 / 5"

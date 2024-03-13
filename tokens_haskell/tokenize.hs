@@ -29,3 +29,4 @@ tokenize (x : xs)
   | otherwise = error $ "Cannot tokenize: " ++ [x]
 
 main = print $ tokenize "Test 1 + 3 / 5"
+-- main = print $ tokenize "Test 1 + 3 / 5 @" -- Error -> @

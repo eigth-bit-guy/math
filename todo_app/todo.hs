@@ -15,3 +15,9 @@ get_todo n td = do
   putStr ("" ++ td)
 
 
+insert_in_list :: (x, y) -> IO ()
+insert_in_list (x, y) =
+  
+
+
+
